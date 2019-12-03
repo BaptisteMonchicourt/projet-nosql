@@ -1,0 +1,49 @@
+.content {
+  margin: 40px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: white;
+  margin: 0;
+  width: 500px;
+  height: 400px;
+}
+
+#separator {
+  width: 80px;
+}
+
+.header {
+  display: flex;
+  padding-top: 15px;
+}
+
+.description {
+  text-align: justify;
+}
+
+#mongodb-description {
+  margin-top: 5px;
+}
+
+#neo4j-description {
+  margin-top: 20px;
+}
+
+#mongodb-title {
+  margin-left: 50px;
+}
+
+#neo4j-title {
+  margin-left: 75px;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}

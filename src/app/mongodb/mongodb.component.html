@@ -1,0 +1,221 @@
+<app-toolbar [section] = "section"></app-toolbar>
+
+<div class="content">
+
+  <div class="title center">
+    <h3>Search for Proteins Engine</h3>
+  </div>
+
+  <div id="allParameters">
+    <form [formGroup] = "formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+      <div class="parameters">
+        <div class="search-parameters">
+          <h5>Search parameters</h5>
+
+          <!-- Default inline 1-->
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" formControlName="searchParameterBtns" value="entryName" class="custom-control-input" id="entryNameBtn">
+            <label class="custom-control-label" for="entryNameBtn">Entry Name</label>
+          </div>
+
+          <!-- Default inline 2-->
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" formControlName="searchParameterBtns" value="entry" class="custom-control-input" id="entryBtn">
+            <label class="custom-control-label" for="entryBtn">Entry</label>
+          </div>
+
+          <!-- Default inline 3-->
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" formControlName="searchParameterBtns" value="keywords" class="custom-control-input" id="keywordsBtn">
+            <label class="custom-control-label" for="keywordsBtn">Keywords</label>
+          </div>
+
+          <!-- Default inline 4-->
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" formControlName="searchParameterBtns" value="proteinNames" class="custom-control-input" id="proteinNamesBtn">
+            <label class="custom-control-label" for="proteinNamesBtn">Protein names</label>
+          </div>
+
+          <!-- Default inline 5-->
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" formControlName="searchParameterBtns" value="geneNames" class="custom-control-input" id="geneNamesBtn">
+            <label class="custom-control-label" for="geneNamesBtn">Gene names</label>
+          </div>
+
+          <!-- Default inline 6-->
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" formControlName="searchParameterBtns" value="organism" class="custom-control-input" id="organismBtn">
+            <label class="custom-control-label" for="organismBtn">Organism</label>
+          </div>
+        </div>
+
+        <div class="search-value">
+          <h5>Search value</h5>
+
+          <input type="text" class="fortextbox" name="searchValue" placeholder="Search..."
+                 formControlName="searchValue">
+          <input type="submit" [disabled]="!formdata.valid" class="forsubmit btn-success" value="Search">
+        </div>
+
+        <div class="max-results" ng-app="myApp" ng-controller="myCtrl">
+          <h5>Max number of results</h5>
+
+          <label id="min" for="range" class="small">{{min}}</label>
+          <input type="range" formControlName="range" ng-model="value" min="{{min}}" max="{{max}}" #ref (change)="changeValue(ref.value)">
+          <label id="max" for="range" class="small">{{max}}</label>
+        </div>
+
+        <div>
+          <input id="value" class="form-control" type="text" placeholder="{{value}}" readonly>
+        </div>
+      </div>
+    </form>
+
+    <a id="advanced" (click)="toggleAdvanced()">Advanced</a>
+
+    <div *ngIf="advanced; then advancedBlock"></div>
+    <ng-template #advancedBlock>
+    <hr id="separation"/>
+    <form [formGroup] = "advformdata" (ngSubmit) = "onClickSubmitAdv(advformdata.value)" >
+      <div class="parameters">
+        <div class="search-parameters adv-parameters">
+          <h5>Advanced search parameters</h5>
+
+          <!-- Default inline 1-->
+          <label for="advEntryName">Entry Name</label>
+          <input type="text" class="fortextbox" name="EntryName" placeholder="Search..."
+                   formControlName="EntryName" id="advEntryName">
+
+          <!-- Default inline 2-->
+          <label for="advEntry">Entry</label>
+          <input type="text" class="fortextbox" name="Entry" placeholder="Search..."
+                     formControlName="Entry" id="advEntry">
+
+          <!-- Default inline 3-->
+          <label for="advKeywords">Keywords</label>
+          <input type="text" class="fortextbox" name="Keywords" placeholder="Search..."
+                     formControlName="Keywords" id="advKeywords">
+
+          <!-- Default inline 4-->
+          <label for="advProteinNames">Protein names</label>
+          <input type="text" class="fortextbox" name="ProteinNames" placeholder="Search..."
+                     formControlName="ProteinNames" id="advProteinNames">
+
+          <!-- Default inline 5-->
+          <label for="advGeneNames">Gene names</label>
+          <input type="text" class="fortextbox" name="GeneNames" placeholder="Search..."
+                     formControlName="GeneNames" id="advGeneNames">
+
+          <!-- Default inline 6-->
+          <label for="advOrganism">Organism</label>
+          <input type="text" class="fortextbox" name="Organism" placeholder="Search..."
+                     formControlName="Organism" id="advOrganism">
+        </div>
+
+        <div class="search-value">
+          <h5>Search now</h5>
+
+          <input type="submit" [disabled]="!advformdata.valid" class="forsubmit btn-success" value="Search">
+        </div>
+      </div>
+    </form>
+    </ng-template>
+  </div>
+
+
+  <div *ngIf="loading; then loadingBlock else tableBlock"></div>
+  <ng-template #loadingBlock>
+    <div id="loading" class="center">
+      <h4>Loading...</h4>
+      <img id="loading-img" src="../../assets/images/loading.gif">
+    </div>
+  </ng-template>
+
+  <ng-template #tableBlock>
+    <div *ngIf="myData; then statsBlock"></div>
+    <ng-template #statsBlock>
+      <div id="statsBlock">
+        <div>
+          <span>Nb of proteins found: </span>{{nbOfProteins}}
+        </div>
+        <div>
+          <span>% of proteins labbeled: </span>{{percLabbeled}}%
+        </div>
+        <div>
+          <span>% of proteins with EC labels: </span>{{percEC}}%
+        </div>
+        <div>
+          <span>% of proteins with GO labels: </span>{{percGO}}%
+        </div>
+        <div>
+          <span>Avg nb of EC domains per protein: </span>{{avgECNb}}
+        </div>
+        <div>
+          <span>Avg nb of GO domains per protein: </span>{{avgGONb}}
+        </div>
+      </div>
+    </ng-template>
+
+    <div id="tableBlock">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Entry name</th>
+            <th scope="col">Entry</th>
+            <th scope="col">Keywords</th>
+            <th scope="col">Protein names</th>
+            <th scope="col">Gene names</th>
+            <th scope="col">Organism</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let protein of myData; let i = index;">
+            <th scope="row">{{i+1}}</th>
+            <td>
+              <div *ngIf="protein.EntryName; then thenBlock1 else elseBlock1"></div>
+              <ng-template #thenBlock1>{{protein.EntryName}}</ng-template>
+              <ng-template #elseBlock1>--</ng-template>
+            </td>
+            <td>
+              <div *ngIf="protein.Entry; then thenBlock2 else elseBlock2"></div>
+              <ng-template #thenBlock2>{{protein.Entry}}</ng-template>
+              <ng-template #elseBlock2>--</ng-template>
+            </td>
+            <td>
+              <span *ngFor="let keyword of toArray(protein.Keywords); let last = last">
+                <div *ngIf="last; then thenBlock3 else elseBlock3"></div>
+                <ng-template #thenBlock3>{{keyword}}</ng-template>
+                <ng-template #elseBlock3>{{keyword}} / </ng-template>
+              </span>
+            </td>
+            <td>
+              <div *ngIf="protein.ProteinNames; then thenBlock4 else elseBlock4"></div>
+              <ng-template #thenBlock4>{{protein.ProteinNames}}</ng-template>
+              <ng-template #elseBlock4>--</ng-template>
+            </td>
+            <td>
+              <div *ngIf="protein.GeneNames; then thenBlock5 else elseBlock5"></div>
+              <ng-template #thenBlock5>{{protein.GeneNames}}</ng-template>
+              <ng-template #elseBlock5>--</ng-template>
+            </td>
+            <td>
+              <div *ngIf="protein.Organism; then thenBlock6 else elseBlock6"></div>
+              <ng-template #thenBlock6>{{protein.Organism}}</ng-template>
+              <ng-template #elseBlock6>--</ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-template>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.value = 50;
+});
+</script>

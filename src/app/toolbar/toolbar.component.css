@@ -1,0 +1,67 @@
+.toolbar {
+  height: 60px;
+  margin-top: -8px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  color: black;
+  font-weight: 600;
+  box-shadow: 0 4px 15px -5px rgba(0, 0, 0, 0.1);
+}
+
+.toolbar img {
+  margin: 0 16px;
+}
+
+#tncy-logo {
+  width: 70px;
+  cursor: pointer;
+  margin: 8px 20px 0 25px;
+}
+
+.toolbar .settings {
+  position: absolute;
+  right: 70px;
+  top: 14px;
+}
+
+.toolbar .settings .signup-btn {
+  margin-top: -3px;
+  margin-bottom: 0;
+  padding: 2px 6px 4px 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.toolbar .settings .login-btn {
+  margin-right: 20px;
+}
+
+.toolbar .settings .login-btn:hover {
+  text-decoration: none;
+}
+
+.red {
+  color: red;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.no-bg {
+  background: none;
+}
+
+.no-border {
+  border: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.margin-right {
+  margin-right: 5px;
+}

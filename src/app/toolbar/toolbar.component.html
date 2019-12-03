@@ -1,0 +1,12 @@
+<!-- Toolbar -->
+<div class="toolbar" role="banner">
+  <img
+    id="tncy-logo"
+    alt="TELECOM Nancy Logo"
+    src="../assets/images/TNCY.png"
+    routerLink=""
+  />
+  <div *ngIf="section!='Home'; then thenBlock"></div>
+  <ng-template #thenBlock><span class="margin-right"><a routerLink="">Home</a> ></span></ng-template>
+  <span>{{section}}</span>
+</div>

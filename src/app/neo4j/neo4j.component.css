@@ -1,0 +1,36 @@
+.content {
+  margin: 40px 50px;
+}
+
+.title {
+  background-color: white;
+  width: 400px;
+  margin: auto;
+  padding: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.center {
+  text-align: center;
+}
+
+.parameters {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: white;
+  padding: 10px 20px;
+  display: inline-flex;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.search-parameters, .search-value, .max-results {
+  margin: 5px 20px;
+}
+
+#viz {
+  width: 900px;
+  height: 700px;
+  background-color: white;
+  border: 1px solid lightgray;
+  font: 22pt arial;
+}
