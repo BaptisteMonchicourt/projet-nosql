@@ -2,23 +2,108 @@
 
 <div class="content">
 
-  <div class="title center">
-    <h3>Proteins Graph Generator</h3>
+    <div class="title center">
+      <h3>Proteins Graph Generator</h3>
+    </div>
+
+    <div id="allParameters">
+      <form [formGroup] = "formdata" (ngSubmit) = "onClickSubmit(formdata.value)" >
+        <div class="parameters">
+          <div class="search-parameters adv-parameters">
+            <h5>Advanced search parameters</h5>
+
+            <label for="advEntryName">Entry Name</label>
+            <input type="text" class="fortextbox" name="EntryName" formControlName="EntryName" placeholder="Search..." id="advEntryName">
+
+            <label for="advEntry">Entry</label>
+            <input type="text" class="fortextbox" name="Entry" formControlName="Entry" placeholder="Search..." id="advEntry">
+
+            <label for="advKeywords">Keywords</label>
+            <input type="text" class="fortextbox" name="Keywords" formControlName="Keywords" placeholder="Search..." id="advKeywords">
+
+            <label for="advEC">EC</label>
+            <input type="text" class="fortextbox" name="EC" formControlName="EC" placeholder="Search..." id="advEC">
+
+            <label for="advGO">GO</label>
+            <input type="text" class="fortextbox" name="GO" formControlName="GO" placeholder="Search..." id="advGO">
+          </div>
+
+          <div class="search-value">
+            <h5>Search now</h5>
+
+            <input type="submit" [disabled]="!formdata.valid" class="forsubmit btn-success" value="Search">
+          </div>
+
+          <div class="max-results" ng-app="myApp" ng-controller="myCtrl">
+            <h5>Min score of similarity</h5>
+
+            <label id="min" for="range" class="small">{{min/100}}</label>
+            <input type="range" formControlName="range" ng-model="value" min="{{min}}" max="{{max}}" #ref (change)="changeValue(ref.value)">
+            <label id="max" for="range" class="small">{{max/100}}</label>
+          </div>
+
+          <div>
+            <input id="value" class="form-control range-value" type="text" placeholder="{{value/100}}" readonly>
+          </div>
+        </div>
+      </form>
+
+
+      <a id="advanced" (click)="togglePropagation()">Propagation</a>
+
+      <div *ngIf="propagation; then propagationBlock"></div>
+      <ng-template #propagationBlock>
+      <hr id="separation"/>
+      <form [formGroup] = "advformdata" (ngSubmit) = "onClickSubmitPropagation(advformdata.value)" >
+        <div id="propagation" class="parameters hide">
+          <div class="search-parameters adv-parameters">
+            <h5>Propagation from a protein</h5>
+
+            <label for="propaEntryName">Entry Name</label>
+            <input type="text" class="fortextbox" name="propaEntryName" formControlName="propaEntryName" placeholder="Search..." id="propaEntryName">
+
+            <label for="propaEntry">Entry</label>
+            <input type="text" class="fortextbox" name="propaEntry" formControlName="propaEntry" placeholder="Search..." id="propaEntry">
+          </div>
+
+          <div class="search-value">
+            <h5>Propagate EC or GO labels</h5>
+
+            <!-- Default inline 1-->
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" formControlName="propagationParameterBtns" value="EC" class="custom-control-input" id="ECBtn">
+              <label class="custom-control-label" for="ECBtn">EC</label>
+            </div>
+
+            <!-- Default inline 2-->
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" formControlName="propagationParameterBtns" value="GO" class="custom-control-input" id="GOBtn">
+              <label class="custom-control-label" for="GOBtn">GO</label>
+            </div>
+          </div>
+
+          <div class="search-value">
+            <h5>Propagate now</h5>
+
+            <input type="submit" [disabled]="!advformdata.valid" class="forsubmit btn-success" value="Propagate">
+          </div>
+
+          <div class="max-results" ng-app="myApp" ng-controller="myCtrl">
+            <h5>Min score of similarity</h5>
+
+            <label id="min" for="range" class="small">{{propaMin/100}}</label>
+            <input type="range" formControlName="propaRange" ng-model="value" min="{{propaMin}}" max="{{propaMax}}" #ref (change)="changePropaValue(ref.value)">
+            <label id="max" for="range" class="small">{{propaMax/100}}</label>
+          </div>
+
+          <div>
+            <input id="value" class="form-control range-value" type="text" placeholder="{{propaValue/100}}" readonly>
+          </div>
+        </div>
+      </form>
+      </ng-template>
+    </div>
   </div>
 
-  <form>
-    <div class="parameters">
-      <div class="search-parameters">
-        <h5>Search parameter</h5>
-      </div>
-
-      <div class="search-value">
-        <h5>Search value</h5>
-      </div>
-
-      <div class="max-results">
-        <h5>Max number of results</h5>
-      </div>
-    </div>
-  </form>
+<div id="viz">
 </div>
