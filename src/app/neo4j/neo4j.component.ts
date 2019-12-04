@@ -37,6 +37,8 @@ export class Neo4jComponent implements OnInit {
        range: new FormControl("")
     });
 
+    this.formdata.get('Entry').setValue("Q7IZ16");
+
     this.min = 10;
     this.max = 99;
     this.value = 50;
@@ -74,7 +76,7 @@ export class Neo4jComponent implements OnInit {
 							caption: "score"
 					}
 			},
-			initial_cypher: "MATCH p=({Entry: 'Q7IZ16'})<-[r1:SIMILAR]->()<-[r2:SIMILAR]->() WHERE r1.score > 0.6 RETURN p"
+			initial_cypher: "MATCH p=({Entry: 'Q7IZ16'})<-[r1:SIMILAR]->()<-[r2:SIMILAR]->() WHERE r1.score > 0.5 RETURN p"
 		}
 		this.viz = new NeoVis.default(config);
 		this.viz.render();
